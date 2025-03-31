@@ -49,14 +49,13 @@ res.json({ qr: qrCode || null });
 });
 
 app.get('/status', (req, res) => {
-    const isConnected = connectedNumber !== null;
-
-    res.json({
-        connected: isConnected,
-        number: isConnected ? connectedNumber : null,
-        qr: !isConnected ? qrCode : null
-    });
+  const isConnected = client.info && client.info.wid;
+  res.json({
+    connected: !!isConnected,
+    number: isConnected ? client.info.wid._serialized : null,
+  });
 });
+
 
 app.post('/send', async (req, res) => {
     const { number, message } = req.body;
