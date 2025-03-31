@@ -44,11 +44,8 @@ client.on('ready', () => {
 client.initialize();
 
 app.get('/qr', (req, res) => {
-    if (qrCode) {
-        res.json({ qr: qrCode });
-    } else {
-        res.status(204).send();
-    }
+res.json({ qr: qrCode || null });
+
 });
 
 app.get('/status', (req, res) => {
