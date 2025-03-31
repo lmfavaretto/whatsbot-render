@@ -52,7 +52,13 @@ app.get('/qr', (req, res) => {
 });
 
 app.get('/status', (req, res) => {
-    res.json({ connected: connectedNumber !== null, number: connectedNumber });
+    const isConnected = connectedNumber !== null;
+
+    res.json({
+        connected: isConnected,
+        number: isConnected ? connectedNumber : null,
+        qr: !isConnected ? qrCode : null
+    });
 });
 
 app.post('/send', async (req, res) => {
